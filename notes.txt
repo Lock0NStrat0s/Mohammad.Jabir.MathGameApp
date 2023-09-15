@@ -21,6 +21,7 @@ General Flow:
 Questions:
 - Show user their score? YES
 - Will the user be sent back to the menu screen after a single question? NO, ASK USER HOW MANY QUESTIONS THEY WANT TO DO BEFORE RETURNING TO MENU
+- Can the user go back to main menu in game? ONLY IN THE DIFFICULTY OR NUMBER OF QUESTIONS MENU
 
 Challenges:
 - Implement levels of difficulty
@@ -54,6 +55,10 @@ Question
 
 L - Logic Design:
 
+Method: Display Welcome message and menu
+Method: Difficulty
+	- Selects game difficulty (Easy - up to 5x table, Medium - up to 10x table, Hard - up to 15x table)
+Method: Number of Questions
 - Generate questions based on difficulty
 Method: Addition
 Method: Subtraction
@@ -62,12 +67,12 @@ Method: Division
 	- Ensure answer is a whole number
 Method: History
 	- Storing question history in a list [Question #: Q : A : User Response]
-Method: Difficulty
-	- Selects game difficulty (Easy - up to 5x table, Medium - up to 10x table, Hard - up to 15x table)
 Method: Timer
 	- Tracks how long user takes to finish game
 Method: Random Game
 	- Mix and match the 4 operations
+Method: GameState
+	- Handles gameplay logic
 
 D - Data Design:
 
