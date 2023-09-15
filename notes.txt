@@ -73,9 +73,20 @@ Method: Random Game
 	- Mix and match the 4 operations
 Method: GameState
 	- Handles gameplay logic
+Method: Randomization
+	- Generates random number questions
 
 D - Data Design:
 
 PlayerInfo:
-Player's score - double
-Score history - List<string>
+double playerScore
+List<string> scoreHistory
+
+GameState:
+int questionCounter - how many questions in game
+
+
+
+
+
+

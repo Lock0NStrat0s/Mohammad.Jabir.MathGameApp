@@ -11,12 +11,12 @@ public static class Methods
     /// <summary>
     /// Greet user and show menu
     /// </summary>
-    public static string DisplayWelcome()
+    private static string DisplayWelcome()
     {
         Console.WriteLine("Welcome to Math Game!");
         Console.WriteLine("Here you will pick the type of operation you want to answer.");
         Console.WriteLine("You will be asked to select difficulty and number of questions.");
-        Console.WriteLine("Select from the following options:");
+        Console.WriteLine("\nSelect from the following options:");
         Console.WriteLine("1. Addition");
         Console.WriteLine("2. Subtraction");
         Console.WriteLine("3. Multiplication");
@@ -31,7 +31,7 @@ public static class Methods
     /// <summary>
     /// Select difficulty level
     /// </summary>
-    public static string Difficulty()
+    private static string Difficulty()
     {
         Console.WriteLine("Pick your level of difficulty:");
         Console.WriteLine("1. Easy - Up to and including 5x table");
@@ -42,7 +42,7 @@ public static class Methods
         return Console.ReadLine();
     }
 
-    public static int NumOfQuestions()
+    private static int NumOfQuestions()
     {
         int num = 0;
         do
@@ -54,7 +54,96 @@ public static class Methods
         return num;
     }
 
+    /// <summary>
+    /// Runs game
+    /// </summary>
     public static void GameState()
+    {
+        bool gameRunning = true;
+
+        do
+        {
+            gameRunning = MenuSelection();
+        } while (gameRunning);
+    }
+
+    private static bool MenuSelection()
+    {
+        string menuSelection = "";
+
+        // welcome user and ask to select from menu options
+        menuSelection = DisplayWelcome();
+
+        // call method depending on menu selection
+        if (menuSelection == "1" || menuSelection == "2" || menuSelection == "3" || menuSelection == "4" || menuSelection == "6")
+        {
+            PreGame(menuSelection);
+        }
+        else if (menuSelection == "5")
+        {
+            History();
+        }
+        else
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static void PreGame(string menuSelection)
+    {
+        Difficulty();
+        NumOfQuestions();
+
+        if (menuSelection == "1")
+        {
+            Addition();
+        }
+        else if (menuSelection == "2")
+        {
+            Subtraction();
+        }
+        else if (menuSelection == "3")
+        {
+            Multiplication();
+        }
+        else if (menuSelection == "4")
+        {
+            Division();
+        }
+        else if (menuSelection == "6")
+        {
+            RandomGame();
+        }
+    }
+
+    private static void RandomGame()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void History()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void Division()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void Multiplication()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void Subtraction()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void Addition()
     {
 
     }
