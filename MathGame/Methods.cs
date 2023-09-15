@@ -42,9 +42,16 @@ public static class Methods
         return Console.ReadLine();
     }
 
-    public static string NumOfQuestions()
+    public static int NumOfQuestions()
     {
+        int num = 0;
+        do
+        {
+            Console.Write("Enter the number of questions in the game (MAX is 10): ");
+            int.TryParse(Console.ReadLine(), out num)
+        } while (num > 0 && num <= 10);
 
+        return num;
     }
 
     public static void GameState()
