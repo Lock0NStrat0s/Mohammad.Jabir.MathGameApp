@@ -1,0 +1,76 @@
+1.0 Math Game
+
+// You need to create a Math game containing the 4 basic operations.
+// The divisions should result on INTEGERS ONLY and dividends should go from 0 to 100. Example: Your app shouldn't present the division 7/2 to the user, since it doesn't result in an integer.
+// Users should be presented with a menu to choose an operation.
+// You should record previous games in a List and there should be an option in the menu for the user to visualize a history of previous games.
+// You don't need to record results on a database. Once the program is closed the results will be deleted.
+
+W - Walk through the project
+General Flow:
+- User opens up the console
+- Ask user to pick from menu, options include:
+	-- addition
+	-- subtraction
+	-- multiplication
+	-- division
+	-- random game
+	-- history of previous games
+	-- end game
+
+Questions:
+- Show user their score? YES
+- Will the user be sent back to the menu screen after a single question? NO, ASK USER HOW MANY QUESTIONS THEY WANT TO DO BEFORE RETURNING TO MENU
+
+Challenges:
+- Implement levels of difficulty
+- Time to track how long the user takes to finish
+- Let user pick number of questions
+- Random Game option presenting user with questions from random operations
+
+O - Open up the requirements
+
+1. User is given a menu to pick from
+2. User repeats math operation until they end game
+
+U - User Interface Design
+UI Design:
+
+- Welcome message
+- Ask user to pick from menu
+- If operation is selected, ask how many questions
+- If history is selected, show history of questions in current game
+- When presented with question, user has to select from 4 different answers
+- Display the score [correct answers / questions = X%]
+
+UI Layout:
+
+Question # - Score: Y/Z = X%
+Question
+1. Answer #1
+2. Answer #2
+3. Answer #3
+4. Answer #4
+
+L - Logic Design:
+
+- Generate questions based on difficulty
+Method: Addition
+Method: Subtraction
+Method: Multiplication
+Method: Division
+	- Ensure answer is a whole number
+Method: History
+	- Storing question history in a list [Question #: Q : A : User Response]
+Method: Difficulty
+	- Selects game difficulty (Easy - up to 5x table, Medium - up to 10x table, Hard - up to 15x table)
+Method: Timer
+	- Tracks how long user takes to finish game
+Method: Random Game
+	- Mix and match the 4 operations
+
+D - Data Design:
+
+PlayerInfo:
+Player's score - double
+Score history - List<string>
