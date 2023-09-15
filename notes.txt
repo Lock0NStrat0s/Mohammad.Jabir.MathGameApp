@@ -72,9 +72,11 @@ Method: Timer
 Method: Random Game
 	- Mix and match the 4 operations
 Method: GameState
+	- Checks if game is running
+Method: Logic
 	- Handles gameplay logic
 Method: Randomization
-	- Generates random number questions
+	- Generates random questions
 
 D - Data Design:
 
@@ -83,6 +85,10 @@ double playerScore
 List<string> scoreHistory
 
 GameState:
+bool gameRunning
+
+
+
 int questionCounter - how many questions in game
 
 

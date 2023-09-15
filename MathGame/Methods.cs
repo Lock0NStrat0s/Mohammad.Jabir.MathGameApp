@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,7 @@ public static class Methods
     /// </summary>
     private static string Difficulty()
     {
+        Console.Clear();
         Console.WriteLine("Pick your level of difficulty:");
         Console.WriteLine("1. Easy - Up to and including 5x table");
         Console.WriteLine("2. Medium - Up to and including 10x table");
@@ -44,11 +46,12 @@ public static class Methods
 
     private static int NumOfQuestions()
     {
+        Console.Clear();
         int num = 0;
         do
         {
             Console.Write("Enter the number of questions in the game (MAX is 10): ");
-            int.TryParse(Console.ReadLine(), out num)
+            int.TryParse(Console.ReadLine(), out num);
         } while (num > 0 && num <= 10);
 
         return num;
@@ -60,14 +63,32 @@ public static class Methods
     public static void GameState()
     {
         bool gameRunning = true;
+        string difficulty = "";
+        int numOfQ = 0;
+        string menuSelection = "";
+        List<string> questions = new List<string>();
+        List<string> history = new List<string>();
 
         do
         {
-            gameRunning = MenuSelection();
+            (gameRunning, menuSelection) = MenuSelection();
+
+            if (gameRunning)
+            {
+                if (menuSelection != "5")
+                {
+                    PreGame(menuSelection);
+                    CreateQuestions(difficulty, numOfQ, menuSelection);
+                }
+                else
+                {
+                    History();
+                }
+            }
         } while (gameRunning);
     }
 
-    private static bool MenuSelection()
+    private static (bool, string) MenuSelection()
     {
         string menuSelection = "";
 
@@ -75,77 +96,97 @@ public static class Methods
         menuSelection = DisplayWelcome();
 
         // call method depending on menu selection
-        if (menuSelection == "1" || menuSelection == "2" || menuSelection == "3" || menuSelection == "4" || menuSelection == "6")
+        if (menuSelection != "1" || menuSelection != "2" || menuSelection != "3" || menuSelection != "4" || menuSelection != "5" || menuSelection != "6")
         {
-            PreGame(menuSelection);
-        }
-        else if (menuSelection == "5")
-        {
-            History();
-        }
-        else
-        {
-            return false;
+            return (false, menuSelection);
         }
 
-        return true;
+        return (true, menuSelection);
     }
 
-    private static void PreGame(string menuSelection)
+    /// <summary>
+    /// Ascertain difficulty and number of questions and then begin game
+    /// </summary>
+    /// <param name="menuSelection"></param>
+    private static (string difficulty, int numOfQ) PreGame(string menuSelection)
     {
-        Difficulty();
-        NumOfQuestions();
-
-        if (menuSelection == "1")
-        {
-            Addition();
-        }
-        else if (menuSelection == "2")
-        {
-            Subtraction();
-        }
-        else if (menuSelection == "3")
-        {
-            Multiplication();
-        }
-        else if (menuSelection == "4")
-        {
-            Division();
-        }
-        else if (menuSelection == "6")
-        {
-            RandomGame();
-        }
+        return (Difficulty(), NumOfQuestions());
     }
 
-    private static void RandomGame()
+    private static List<string> CreateQuestions(string difficulty, int numOfQ, string menuSelection)
     {
-        throw new NotImplementedException();
+        //List<string> questions = new List<string>();
+
+        do
+        {
+            questions.Add(Generate(difficulty, numOfQ, menuSelection));
+        } while (numOfQ > 0);
+
+        return questions;
+    }
+
+    private static void DisplayGame()
+    {
+        Console.Clear();
+    }
+
+    private static void RandomGame(string difficulty, int numOfQ)
+    {
+
     }
 
     private static void History()
     {
-        throw new NotImplementedException();
+
     }
 
-    private static void Division()
+    private static void Division(string difficulty, int numOfQ)
     {
-        throw new NotImplementedException();
+
     }
 
-    private static void Multiplication()
+    private static void Multiplication(string difficulty, int numOfQ)
     {
-        throw new NotImplementedException();
+
     }
 
-    private static void Subtraction()
+    private static void Subtraction(string difficulty, int numOfQ)
     {
-        throw new NotImplementedException();
+
     }
 
-    private static void Addition()
+    private static void Addition(string difficulty, int numOfQ)
     {
+        //List<string> Questions = new List<string>();
 
+        //do
+        //{
+        //    Generate(difficulty, numOfQ);
+        //} while (numOfQ > 0);
+    }
+
+    private static string Generate(string difficulty, int numOfQ, string menuSelection)
+    {
+        //if (menuSelection == "1")
+        //{
+        //    Addition(difficulty, numOfQ);
+        //}
+        //else if (menuSelection == "2")
+        //{
+        //    Subtraction(difficulty, numOfQ);
+        //}
+        //else if (menuSelection == "3")
+        //{
+        //    Multiplication(difficulty, numOfQ);
+        //}
+        //else if (menuSelection == "4")
+        //{
+        //    Division(difficulty, numOfQ);
+        //}
+        //else if (menuSelection == "6")
+        //{
+        //    RandomGame(difficulty, numOfQ);
+        //}
     }
 }
 

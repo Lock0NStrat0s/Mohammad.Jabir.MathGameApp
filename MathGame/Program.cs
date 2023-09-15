@@ -1,7 +1,7 @@
 ﻿using MathGame;
 
 
-Methods.GameState();
+List<string> questions = Methods.GameState();
 
 
 
