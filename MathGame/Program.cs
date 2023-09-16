@@ -13,7 +13,7 @@ do
 
     if (gameRunning)
     {
-        if (menuSelection != "5")
+        if (menuSelection != "6")
         {
             difficulty = Difficulty();
             numOfQ = NumOfQuestions();
@@ -23,7 +23,14 @@ do
         }
         else
         {
-            //History();
+            if (playerInfo.HistoryOfQuestions.Count > 0)
+            {
+                History(playerInfo);
+            }
+            else
+            {
+                Console.WriteLine("Please play a game to see your history.");
+            }
         }
     }
 } while (gameRunning);
@@ -120,6 +127,8 @@ static void DisplayGame(PlayerInfo playerInfo, List<Questions> questions)
             int.TryParse(Console.ReadLine(), out input);
         } while (input < 1 || input > 4);
 
+        questions[i].UserAnswer = questions[i].Answers[input - 1];
+
         if (input == questions[i].correctAnswerIndex + 1)
         {
             playerInfo.Score++;
@@ -129,8 +138,37 @@ static void DisplayGame(PlayerInfo playerInfo, List<Questions> questions)
 
 static void Results(PlayerInfo playerInfo, List<Questions> questions)
 {
+    playerInfo.HistoryOfQuestions.Add(questions);
     Console.Clear();
     Console.WriteLine($"Your score: {playerInfo.Score}/{questions.Count}");
     Console.Write("Press any key to continue: ");
+    Console.ReadLine();
+}
+
+static void History(PlayerInfo playerInfo)
+{
+    Console.Clear();
+    for (int i = 0; i < playerInfo.HistoryOfQuestions.Count; i++)
+    {
+        for (int j = 0; j < playerInfo.HistoryOfQuestions[i].Count; j++)
+        {
+            Questions question = playerInfo.HistoryOfQuestions[i][j];
+            Console.WriteLine($"Game {i + 1}: Question #{j + 1}: {question.Question}");
+            for (int k = 0; k < question.Answers.Count; k++)
+            {
+                Console.WriteLine($"{k + 1}: {question.Answers[k]}");
+            }
+            Console.WriteLine($"User answer: {question.UserAnswer}");
+            if (question.UserAnswer == question.CorrectAnswer.ToString())
+            {
+                Console.WriteLine("CORRECT!!!");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect Answer.");
+            }
+        }
+    }
+    Console.Write("Press any key to return to main menu: ");
     Console.ReadLine();
 }

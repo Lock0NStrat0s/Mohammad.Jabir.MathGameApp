@@ -12,6 +12,6 @@ namespace MathGameLibrary
         public List<string> Answers { get; set; } = new List<string>();
         public int CorrectAnswer { get; set; }
         public int correctAnswerIndex { get; set; }
-        public bool UserAnswer { get; set; }
+        public string UserAnswer { get; set; }
     }
 }

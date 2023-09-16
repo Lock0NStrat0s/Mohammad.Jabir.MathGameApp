@@ -9,6 +9,6 @@ namespace MathGameLibrary
     public class PlayerInfo
     {
         public int Score { get; set; }
-        public List<Questions> HistoryOfQuestions { get; set; } = new List<Questions>();
+        public List<List<Questions>> HistoryOfQuestions { get; set; } = new List<List<Questions>>();
     }
 }
