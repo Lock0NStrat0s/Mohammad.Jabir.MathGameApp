@@ -48,7 +48,7 @@ public static class GameLogic
         int secondValue = random.Next(0, maxNum);
 
         question.Question = $"{firstValue} + {secondValue}";
-        question.CorrectAns = firstValue + secondValue;
+        question.CorrectAnswer = firstValue + secondValue;
 
         GenerateAnswers(question);
     }
@@ -72,6 +72,14 @@ public static class GameLogic
 
         // randomize list of answers using fisher-yates shuffle
         question.Answers = RandomizeList(question.Answers);
+
+        for (int i = 0; i < question.Answers.Count(); i++)
+        {
+            if (question.Answers[i] == question.CorrectAnswer.ToString())
+            {
+                question.correctAnswerIndex = i;
+            }
+        }
     }
 
     private static List<string> RandomizeList(List<string> answers)

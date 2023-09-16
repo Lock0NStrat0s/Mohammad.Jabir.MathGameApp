@@ -18,8 +18,8 @@ do
             difficulty = Difficulty();
             numOfQ = NumOfQuestions();
             questions = GameLogic.GenerateQuestions(difficulty, numOfQ, menuSelection);
-            DisplayGame(questions);
-            Results();
+            DisplayGame(playerInfo, questions);
+            Results(playerInfo, questions);
         }
         else
         {
@@ -35,6 +35,7 @@ do
 /// </summary>
 static string DisplayWelcome()
 {
+    Console.Clear();
     Console.WriteLine("Welcome to Math Game!");
     Console.WriteLine("Here you will pick the type of operation you want to answer.");
     Console.WriteLine("You will be asked to select difficulty and number of questions.");
@@ -100,7 +101,7 @@ static (bool, string) MenuSelection()
     return (continueGame, menuSelection);
 }
 
-static void DisplayGame(List<Questions> questions)
+static void DisplayGame(PlayerInfo playerInfo, List<Questions> questions)
 {
     for (int i = 0; i < questions.Count; i++)
     {
@@ -109,7 +110,7 @@ static void DisplayGame(List<Questions> questions)
         {
             Console.Clear();
             Console.WriteLine($"Question #{i + 1}");
-            //Console.WriteLine($"Current score: {playerInfo.Score}/{questions.Count}");
+            Console.WriteLine($"Current score: {playerInfo.Score}/{questions.Count}");
             Console.WriteLine($"{questions[i].Question}: \n");
             for (int j = 0; j < questions[i].Answers.Count; j++)
             {
@@ -118,10 +119,18 @@ static void DisplayGame(List<Questions> questions)
             Console.Write("\nWhat is the correct answer? ");
             int.TryParse(Console.ReadLine(), out input);
         } while (input < 1 || input > 4);
+
+        if (input == questions[i].correctAnswerIndex + 1)
+        {
+            playerInfo.Score++;
+        }
     }
 }
 
-static void Results()
+static void Results(PlayerInfo playerInfo, List<Questions> questions)
 {
-    
+    Console.Clear();
+    Console.WriteLine($"Your score: {playerInfo.Score}/{questions.Count}");
+    Console.Write("Press any key to continue: ");
+    Console.ReadLine();
 }
