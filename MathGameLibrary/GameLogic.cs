@@ -23,9 +23,13 @@ public static class GameLogic
         }
         else
         {
-
+            do
+            {
+                int rndOperation = random.Next(1, 5);
+                questions.Add(Operation(difficulty, rndOperation.ToString()));
+                numOfQ--;
+            } while (numOfQ > 0);
         }
-
 
         return questions;
     }
@@ -65,41 +69,8 @@ public static class GameLogic
         {
             Division(question, maxNum);
         }
-        else
-        {
-            RandomGame(question, maxNum);
-        }
 
         return question;
-    }
-
-    private static void RandomGame(Questions question, int maxNum)
-    {
-        int rndOperation = random.Next(0, 4);
-
-        //if (rndOperation == 0)
-        //{
-        //    Addition(question, maxNum);
-        //}
-        //else if (rndOperation == 1)
-        //{
-        //    Subtraction(question, maxNum);
-        //}
-        //else if (rndOperation == 2)
-        //{
-        //    int newMaxNum = maxNum switch
-        //    {
-        //        51 => 6,
-        //        101 => 11,
-        //        151 => 16,
-        //        _ => 11
-        //    };
-        //    Multiplication(question, maxNum);
-        //}
-        //else if (rndOperation == 3)
-        //{
-        //    Division(question, maxNum);
-        //}
     }
 
     private static void Division(Questions question, int maxNum)
@@ -158,7 +129,7 @@ public static class GameLogic
         question.Answers.Add(question.CorrectAnswer.ToString());
         do
         {
-            string temp = random.Next(101).ToString();
+            string temp = random.Next(151).ToString();
             if (question.Answers.Contains(temp))
             {
                 continue;
