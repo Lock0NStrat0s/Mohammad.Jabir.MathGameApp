@@ -13,6 +13,7 @@ do
 
     if (gameRunning)
     {
+        // menu option #6 is for game history
         if (menuSelection != "6")
         {
             difficulty = Difficulty();
@@ -29,17 +30,13 @@ do
             }
             else
             {
-                Console.WriteLine("Please play a game to see your history.");
+                HistoryEmpty();
             }
         }
     }
 } while (gameRunning);
 
-//Random random = new Random();
-
-/// <summary>
-/// Greet user and show menu
-/// </summary>
+// Greet user and show menu for user to select from
 static string DisplayWelcome()
 {
     Console.Clear();
@@ -58,27 +55,33 @@ static string DisplayWelcome()
     return Console.ReadLine();
 }
 
-/// <summary>
-/// Select difficulty level
-/// </summary>
+// Select difficulty level
 static string Difficulty()
 {
-    Console.Clear();
-    Console.WriteLine("1. Easy - Up to and including 50 (5 for mult.)");
-    Console.WriteLine("2. Medium - Up to and including 100 (10 for mult.)");
-    Console.WriteLine("3. Hard - Up to and including 150 (15 for mult.)");
-    Console.WriteLine("Any other key to return to main menu.\n");
-    Console.Write("Pick your level of difficulty: ");
+    int num = 0;
+    string output = "";
+    do
+    {
+        Console.Clear();
+        Console.WriteLine("1. Easy - Up to and including 50 (5 for mult.)");
+        Console.WriteLine("2. Medium - Up to and including 100 (10 for mult.)");
+        Console.WriteLine("3. Hard - Up to and including 150 (15 for mult.)");
+        Console.WriteLine("Any other key to return to main menu.\n");
+        Console.Write("Pick your level of difficulty: ");
+        output = Console.ReadLine();
+        int.TryParse(output, out num);
+    } while (num < 1 || num > 3);
 
-    return Console.ReadLine();
+    return output;
 }
 
+// Select number of questions
 static int NumOfQuestions()
 {
-    Console.Clear();
     int num = 0;
     do
     {
+        Console.Clear();
         Console.Write("Enter the number of questions in the game (MAX is 10): ");
         int.TryParse(Console.ReadLine(), out num);
     } while (num <= 0 || num > 10);
@@ -86,6 +89,16 @@ static int NumOfQuestions()
     return num;
 }
 
+// Display if user has not yet played a game
+static void HistoryEmpty()
+{
+    Console.Clear();
+    Console.WriteLine("Please play a game to see your history.");
+    Console.Write("Enter a key to return to the main menu: ");
+    Console.ReadLine();
+}
+
+// Returns true if user selects valid menu option
 static (bool, string) MenuSelection()
 {
     string menuSelection = "";
@@ -108,6 +121,7 @@ static (bool, string) MenuSelection()
     return (continueGame, menuSelection);
 }
 
+// Displays the game on console
 static void DisplayGame(PlayerInfo playerInfo, List<Questions> questions)
 {
     for (int i = 0; i < questions.Count; i++)
@@ -127,8 +141,10 @@ static void DisplayGame(PlayerInfo playerInfo, List<Questions> questions)
             int.TryParse(Console.ReadLine(), out input);
         } while (input < 1 || input > 4);
 
+        // save users answer
         questions[i].UserAnswer = questions[i].Answers[input - 1];
 
+        // increment player score
         if (input == questions[i].correctAnswerIndex + 1)
         {
             playerInfo.Score++;
@@ -136,6 +152,7 @@ static void DisplayGame(PlayerInfo playerInfo, List<Questions> questions)
     }
 }
 
+// Shows results at the end of game
 static void Results(PlayerInfo playerInfo, List<Questions> questions)
 {
     playerInfo.HistoryOfQuestions.Add(questions);
@@ -147,6 +164,7 @@ static void Results(PlayerInfo playerInfo, List<Questions> questions)
     Console.ReadLine();
 }
 
+// Shows a detailed summary of all games played
 static void History(PlayerInfo playerInfo)
 {
     Console.Clear();

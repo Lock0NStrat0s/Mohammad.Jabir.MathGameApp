@@ -8,11 +8,14 @@ namespace MathGameLibrary;
 
 public static class GameLogic
 {
-    public static Random random = new Random();
+    public static Random random = new Random();     // random number generator
+    
+    // Generates and returns a list of questions
     public static List<Questions> GenerateQuestions(string difficulty, int numOfQ, string menuSelection)
     {
         List<Questions> questions = new List<Questions>();
 
+        // if user selects a normal operation
         if (menuSelection != "5")
         {
             do
@@ -21,6 +24,7 @@ public static class GameLogic
                 numOfQ--;
             } while (numOfQ > 0);
         }
+        // if user selects random operations
         else
         {
             do
@@ -34,6 +38,7 @@ public static class GameLogic
         return questions;
     }
 
+    // Handles the 4 different types of math operations
     private static Questions Operation(string difficulty, string menuSelection)
     {
         Questions question = new Questions();
@@ -56,6 +61,7 @@ public static class GameLogic
         }
         else if (menuSelection == "3")
         {
+            // reduce difficulty when multiplying
             maxNum = difficulty switch
             {
                 "1" => 6,
@@ -104,7 +110,7 @@ public static class GameLogic
     private static void Subtraction(Questions question, int maxNum)
     {
         int firstValue = random.Next(0, maxNum);
-        int secondValue = random.Next(firstValue, maxNum);
+        int secondValue = random.Next(0, firstValue + 1);
 
         question.Question = $"{firstValue} - {secondValue}";
         question.CorrectAnswer = firstValue - secondValue;
@@ -123,9 +129,9 @@ public static class GameLogic
         GenerateAnswers(question);
     }
 
+    // Generate a list of 3 false answers
     private static void GenerateAnswers(Questions question)
     {
-        // generate a list of 3 false answers 
         question.Answers.Add(question.CorrectAnswer.ToString());
         do
         {
@@ -152,6 +158,7 @@ public static class GameLogic
         }
     }
 
+    // Randomize generated list
     private static List<string> RandomizeList(List<string> answers)
     {
         int n = answers.Count;
