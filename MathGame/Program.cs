@@ -64,9 +64,9 @@ static string DisplayWelcome()
 static string Difficulty()
 {
     Console.Clear();
-    Console.WriteLine("1. Easy - Up to and including 5x table");
-    Console.WriteLine("2. Medium - Up to and including 10x table");
-    Console.WriteLine("3. Hard - Up to and including 15x table");
+    Console.WriteLine("1. Easy - Up to and including 50 (5 for mult.)");
+    Console.WriteLine("2. Medium - Up to and including 100 (10 for mult.)");
+    Console.WriteLine("3. Hard - Up to and including 150 (15 for mult.)");
     Console.WriteLine("Any other key to return to main menu.\n");
     Console.Write("Pick your level of difficulty: ");
 
@@ -141,6 +141,8 @@ static void Results(PlayerInfo playerInfo, List<Questions> questions)
     playerInfo.HistoryOfQuestions.Add(questions);
     Console.Clear();
     Console.WriteLine($"Your score: {playerInfo.Score}/{questions.Count}");
+    playerInfo.Score = 0;
+
     Console.Write("Press any key to continue: ");
     Console.ReadLine();
 }

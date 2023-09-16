@@ -13,11 +13,19 @@ public static class GameLogic
     {
         List<Questions> questions = new List<Questions>();
 
-        do
+        if (menuSelection != "5")
         {
-            questions.Add(Operation(difficulty, menuSelection));
-            numOfQ--;
-        } while (numOfQ > 0);
+            do
+            {
+                questions.Add(Operation(difficulty, menuSelection));
+                numOfQ--;
+            } while (numOfQ > 0);
+        }
+        else
+        {
+
+        }
+
 
         return questions;
     }
@@ -28,18 +36,109 @@ public static class GameLogic
 
         int maxNum = difficulty switch
         {
-            "1" => 6,
-            "2" => 11,
-            "3" => 16,
-            _ => 11
+            "1" => 51,
+            "2" => 101,
+            "3" => 151,
+            _ => 101
         };
 
         if (menuSelection == "1")
         {
             Addition(question, maxNum);
         }
+        else if (menuSelection == "2")
+        {
+            Subtraction(question, maxNum);
+        }
+        else if (menuSelection == "3")
+        {
+            maxNum = difficulty switch
+            {
+                "1" => 6,
+                "2" => 11,
+                "3" => 16,
+                _ => 11
+            };
+            Multiplication(question, maxNum);
+        }
+        else if (menuSelection == "4")
+        {
+            Division(question, maxNum);
+        }
+        else
+        {
+            RandomGame(question, maxNum);
+        }
 
         return question;
+    }
+
+    private static void RandomGame(Questions question, int maxNum)
+    {
+        int rndOperation = random.Next(0, 4);
+
+        //if (rndOperation == 0)
+        //{
+        //    Addition(question, maxNum);
+        //}
+        //else if (rndOperation == 1)
+        //{
+        //    Subtraction(question, maxNum);
+        //}
+        //else if (rndOperation == 2)
+        //{
+        //    int newMaxNum = maxNum switch
+        //    {
+        //        51 => 6,
+        //        101 => 11,
+        //        151 => 16,
+        //        _ => 11
+        //    };
+        //    Multiplication(question, maxNum);
+        //}
+        //else if (rndOperation == 3)
+        //{
+        //    Division(question, maxNum);
+        //}
+    }
+
+    private static void Division(Questions question, int maxNum)
+    {
+        double firstValue = 0;
+        double secondValue = 0;
+        do
+        {
+            firstValue = random.Next(0, maxNum);
+            secondValue = random.Next(0, maxNum);
+        } while (firstValue % secondValue != 0);
+
+
+        question.Question = $"{firstValue} / {secondValue}";
+        question.CorrectAnswer = (int)(firstValue / secondValue);
+
+        GenerateAnswers(question);
+    }
+
+    private static void Multiplication(Questions question, int maxNum)
+    {
+        int firstValue = random.Next(0, maxNum);
+        int secondValue = random.Next(0, maxNum);
+
+        question.Question = $"{firstValue} * {secondValue}";
+        question.CorrectAnswer = firstValue * secondValue;
+
+        GenerateAnswers(question);
+    }
+
+    private static void Subtraction(Questions question, int maxNum)
+    {
+        int firstValue = random.Next(0, maxNum);
+        int secondValue = random.Next(firstValue, maxNum);
+
+        question.Question = $"{firstValue} - {secondValue}";
+        question.CorrectAnswer = firstValue - secondValue;
+
+        GenerateAnswers(question);
     }
 
     private static void Addition(Questions question, int maxNum)
